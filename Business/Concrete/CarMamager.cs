@@ -3,6 +3,7 @@ using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,11 +51,38 @@ namespace Business.Concrete
                 }
             }
         }
-       
+        //public void Delete(Car car)
+        //{
+        //    using (RentCarContext context = new RentCarContext())
+        //    {
+        //        context.Cars.Remove(context.Cars.SingleOrDefault(c=> c.CarId == car.CarId));
+        //        context.SaveChanges();
+        //        Console.WriteLine("Araba silindi.");
+        //    }
+        //}
+        public void Update(Car car)
+        {
+            using (RentCarContext context = new RentCarContext())
+            {
+                var carToUpdate = context.Cars.SingleOrDefault(c => c.CarId == car.CarId);
+                carToUpdate.CarId = car.CarId;
+                carToUpdate.BrandId = car.BrandId;
+                carToUpdate.ColorId = car.ColorId;
+                carToUpdate.DailyPrice = car.DailyPrice;
+                carToUpdate.Description = car.Description;
+                carToUpdate.ModelYear = car.ModelYear;
+                context.SaveChanges();
+            }
+        }
 
         public List<Car> GetAllByColorId(int id)
         {
-            return _carDal.GetAll(c => c.ColorId == 2);
+            return _carDal.GetAll(c => c.ColorId == id);
+        }
+
+        public List<CarDetailDto> GetCarDetails()
+        {
+            return _carDal.GetCarDetails();
         }
     }
 }

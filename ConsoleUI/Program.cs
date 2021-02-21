@@ -10,17 +10,51 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
+            CarTest();
+
+           // BrandTest();
+
+           // ColorTest();
+
+        }
+
+        private static void ColorTest()
+        {
+            Console.WriteLine("-------------------------renkler ve Id'leri----------------------------------------------------------------");
+            Console.WriteLine(" ");
+
+            ColorManager colorManager = new ColorManager(new EfColorDal());
+            foreach (var color in colorManager.GetAll())
+            {
+                Console.WriteLine(color.ColorId + " " + color.colorName);
+            }
+        }
+
+        private static void BrandTest()
+        {
+            Console.WriteLine("-------------------------Markalar ve Idleri---------------------------------------------------------------------");
+            Console.WriteLine(" ");
+
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
+            foreach (var brand in brandManager.GetAll())
+            {
+                Console.WriteLine(brand.BrandId + " = " + brand.BrandName);
+            }
+        }
+
+        private static void CarTest()
+        {
             CarMamager carMamager = new CarMamager(new EfCarDal());
             foreach (var car in carMamager.GetAll())
             {
-                Console.WriteLine(car.CarId+" "+ car.Description  + " "+ car.DailyPrice);
+                Console.WriteLine(car.CarId + " " + car.Description + " " + car.DailyPrice);
             }
             Console.WriteLine("-----------------------Filtreli arabalar----------------------------------------------------------------------");
-            Console.WriteLine(" "); 
+            Console.WriteLine(" ");
 
-            
-            
-            foreach (var car in carMamager.GetAllByDailyPrice( 350 , 500))
+
+
+            foreach (var car in carMamager.GetAllByDailyPrice(350, 500))
             {
                 Console.WriteLine(car.CarId + " " + car.Description + " " + car.DailyPrice);
             }
@@ -29,24 +63,7 @@ namespace ConsoleUI
 
             foreach (var car in carMamager.GetAllByBrandId(2))
             {
-                Console.WriteLine(car.BrandId + " " +car.CarId + " " + car.Description + " " + car.DailyPrice);
-            }
-
-            Console.WriteLine("-------------------------Markalar ve Idleri---------------------------------------------------------------------");
-            Console.WriteLine(" ");
-
-            BrandManager brandManager = new BrandManager(new EfBrandDal());
-            foreach (var brand in brandManager.GetAll())
-            {
-                Console.WriteLine(brand.BrandId+" = "+ brand.BrandName);
-            }
-            Console.WriteLine("-------------------------renkler ve Id'leri----------------------------------------------------------------");
-            Console.WriteLine(" ");
-
-            ColorManager colorManager = new ColorManager(new EfColorDal());
-            foreach (var color in colorManager.GetAll())
-            {
-                Console.WriteLine(color.ColorId+ " "+ color.colorName);
+                Console.WriteLine(car.BrandId + " " + car.CarId + " " + car.Description + " " + car.DailyPrice);
             }
 
             Console.WriteLine("-------------------------Databesa'e araba eklemek----------------------------------------------------------------");
@@ -60,8 +77,22 @@ namespace ConsoleUI
                 DailyPrice = 0,
                 Description = "Manuel"
             });
-           
+            Console.WriteLine("-------------------------Databesa'den araba silmek----------------------------------------------------------------");
+            Console.WriteLine(" ");
+
+            //carMamager.Delete(new Car()
+            //{
+            //    CarId = 6
+            //});
+            Console.WriteLine("------------------------------------9. dersin çıktısı--------------------------------------------------------------");
+            Console.WriteLine(" ");
+
+            foreach (var car in carMamager.GetCarDetails())
+            {
+                Console.WriteLine(car.CarName +" "+car.BrandName + " " + car.ColorName + " " + car.DailyPrice);
+            }
 
         }
+       
     }
 }
