@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
@@ -20,69 +22,55 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-            return _carDal.GetAll();
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarListed);
         }
 
-        public List<Car> GetAllByBrandId(int id)
+        public IDataResult<List<Car>> GetAllByBrandId(int id)
         {
-            return _carDal.GetAll(c=> c.BrandId ==2);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == 2));
         }
 
-        public List<Car> GetAllByDailyPrice(decimal min, decimal max)
+        public IDataResult<List<Car>> GetAllByDailyPrice(decimal min, decimal max)
         {
-            return _carDal.GetAll(c =>c.DailyPrice>= min && c.DailyPrice<= max);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.DailyPrice >= min && c.DailyPrice <= max));
         }
 
-        public void Add(Car car)
+        public IResult Add(Car car)
         {
-            using (RentCarContext context = new RentCarContext())
+            if (car.DailyPrice > 0 && car.Description.Length > 1)
             {
-                if (car.DailyPrice > 0 && context.Brands.SingleOrDefault(b => b.BrandId == car.BrandId).BrandName.Length > 2)
-                {
-                    _carDal.Add(car);
-                    Console.WriteLine("Araba eklendi.");
-                }
-                else
-                {
-                    Console.WriteLine("ERROR!!!");
-
-                }
+                _carDal.Add(car);
+                return new SuccessResult(Messages.CarAdded);
             }
+            return new ErrorResult(Messages.CarInvalid);
         }
-        //public void Delete(Car car)
-        //{
-        //    using (RentCarContext context = new RentCarContext())
-        //    {
-        //        context.Cars.Remove(context.Cars.SingleOrDefault(c=> c.CarId == car.CarId));
-        //        context.SaveChanges();
-        //        Console.WriteLine("Araba silindi.");
-        //    }
-        //}
-        public void Update(Car car)
+        public IResult Updete(Car car)
         {
-            using (RentCarContext context = new RentCarContext())
-            {
-                var carToUpdate = context.Cars.SingleOrDefault(c => c.CarId == car.CarId);
-                carToUpdate.CarId = car.CarId;
-                carToUpdate.BrandId = car.BrandId;
-                carToUpdate.ColorId = car.ColorId;
-                carToUpdate.DailyPrice = car.DailyPrice;
-                carToUpdate.Description = car.Description;
-                carToUpdate.ModelYear = car.ModelYear;
-                context.SaveChanges();
-            }
+            return new SuccessResult(Messages.CarUpdate);
+        }
+        
+        public IDataResult<List<Car>> GetAllByColorId(int id)
+        {
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == id));
         }
 
-        public List<Car> GetAllByColorId(int id)
+        public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
-            return _carDal.GetAll(c => c.ColorId == id);
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
         }
 
-        public List<CarDetailDto> GetCarDetails()
+        public IResult Delete(Car car)
         {
-            return _carDal.GetCarDetails();
+            _carDal.Add(car);
+            return new SuccessResult(Messages.CarDelede);
+        }
+
+        public IResult Update(Car car)
+        {
+            _carDal.Update(car);
+            return new SuccessResult(Messages.CarUpdate);
         }
     }
 }

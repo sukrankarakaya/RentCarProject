@@ -6,6 +6,8 @@ namespace Core.Utilities.Results
 {
     public class SuccessResult:Result
     {
+        public object CarUpdate { get; }
+
         public SuccessResult(string message): base(true,message)
         {
 
@@ -13,6 +15,11 @@ namespace Core.Utilities.Results
         public SuccessResult() : base(true)
         {
 
+        }
+
+        public SuccessResult(object carUpdate)
+        {
+            CarUpdate = carUpdate;
         }
     }
 }

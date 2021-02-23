@@ -24,7 +24,7 @@ namespace ConsoleUI
             Console.WriteLine(" ");
 
             ColorManager colorManager = new ColorManager(new EfColorDal());
-            foreach (var color in colorManager.GetAll())
+            foreach (var color in colorManager.GetAll().Data)
             {
                 Console.WriteLine(color.ColorId + " " + color.colorName);
             }
@@ -36,7 +36,7 @@ namespace ConsoleUI
             Console.WriteLine(" ");
 
             BrandManager brandManager = new BrandManager(new EfBrandDal());
-            foreach (var brand in brandManager.GetAll())
+            foreach (var brand in brandManager.GetAll().Data)
             {
                 Console.WriteLine(brand.BrandId + " = " + brand.BrandName);
             }
@@ -45,23 +45,22 @@ namespace ConsoleUI
         private static void CarTest()
         {
             CarMamager carMamager = new CarMamager(new EfCarDal());
-            foreach (var car in carMamager.GetAll())
+            foreach (var car in carMamager.GetAll().Data)
             {
                 Console.WriteLine(car.CarId + " " + car.Description + " " + car.DailyPrice);
             }
-            Console.WriteLine("-----------------------Filtreli arabalar----------------------------------------------------------------------");
             Console.WriteLine(" ");
 
 
 
-            foreach (var car in carMamager.GetAllByDailyPrice(350, 500))
+            foreach (var car in carMamager.GetAllByDailyPrice(350, 500).Data)
             {
                 Console.WriteLine(car.CarId + " " + car.Description + " " + car.DailyPrice);
             }
             Console.WriteLine("------------------------BrandId'si 2 olan arabalar-------------------------------------------------------------");
             Console.WriteLine(" ");
 
-            foreach (var car in carMamager.GetAllByBrandId(2))
+            foreach (var car in carMamager.GetAllByBrandId(2).Data)
             {
                 Console.WriteLine(car.BrandId + " " + car.CarId + " " + car.Description + " " + car.DailyPrice);
             }
@@ -71,23 +70,18 @@ namespace ConsoleUI
 
             carMamager.Add(new Car()
             {
-                BrandId = 3,
-                ColorId = 2,
-                ModelYear = 2020,
-                DailyPrice = 0,
+                BrandId = 4,
+                ColorId = 1,
+                ModelYear = 2016,
+                DailyPrice = 300,
                 Description = "Manuel"
-            });
-            Console.WriteLine("-------------------------Databesa'den araba silmek----------------------------------------------------------------");
-            Console.WriteLine(" ");
 
-            //carMamager.Delete(new Car()
-            //{
-            //    CarId = 6
-            //});
+            });
+      
             Console.WriteLine("------------------------------------9. dersin çıktısı--------------------------------------------------------------");
             Console.WriteLine(" ");
 
-            foreach (var car in carMamager.GetCarDetails())
+            foreach (var car in carMamager.GetCarDetails().Data)
             {
                 Console.WriteLine(car.CarName +" "+car.BrandName + " " + car.ColorName + " " + car.DailyPrice);
             }

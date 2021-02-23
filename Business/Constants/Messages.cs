@@ -10,6 +10,10 @@ namespace Business.Constants
         public static string CarAdded = "Araba Eklendi";
         public static string CarNameInvalid = "Araba ismi geçersiz.";
         public static string CarDelede = "Araba silindi.";
+        public static object CarUpdate ="Araba Güncellendi.";
+        public static string CarInvalid="Geçersiz araba ismi.";
+        public static string CarListed = "Arabalar Listelendi.";
+
 
         public static string ColorAdded = "Color eklendi.";
         public static string ColorDelete = "Color silindi";
@@ -19,6 +23,6 @@ namespace Business.Constants
         public static string BrandDelete = "Brand silindi";
         public static string BrandUpdate = "Brand Güncellendi.";
         public static string MaintenanceTime="Sistemimiz bakımdadır.";
-        public static string CarListed= "Arabalar Listelendi.";
+        
     }
 }
