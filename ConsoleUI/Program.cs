@@ -1,4 +1,7 @@
-﻿using Business.Concrete;
+﻿using Business;
+using Business.Concrete;
+using Business.Constants;
+using DataAccess.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
@@ -10,12 +13,73 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            CarTest();
+            //CarTest();
+            // BrandTest();
+            // ColorTest();
+            //UserTest();
+            //CustomerTest();
 
-           // BrandTest();
+            RentalTest();
 
-           // ColorTest();
+        }
 
+        private static void RentalTest()
+        {
+            RentalMenager rentalMenager = new RentalMenager(new EfRentalDal());
+            rentalMenager.Add(new Rental()
+            {
+
+                CarId = 5,
+                CustomerId = 2,
+                RentDate = DateTime.Now,
+                ReturnDate = new DateTime(2021, 03, 06)
+
+
+            });
+
+
+
+            Console.WriteLine(" Id     CarId    CustomerId          RentDate                  ReturnDate");
+            Console.WriteLine("----   -------  -------------       -------------            ----------------");
+
+            foreach (var rental in rentalMenager.GetAll().Data)
+            {
+                Console.WriteLine(rental.RentalId+"    "+ rental.CarId+"          "+ rental.CustomerId+"               "+ rental.RentDate+"       "+ rental.ReturnDate);
+            }
+            
+            
+
+
+        }
+
+        private static void CustomerTest()
+        {
+            CustomerMenager customerMenager = new CustomerMenager(new EfCustomerDal());
+            customerMenager.Add(new Customer() { UserId = 1, CustomerId = 5, CompanyName = "Bayram İndirimi" });
+            Console.WriteLine(Messages.CustomerAdd);
+            foreach (var customer in customerMenager.GetAll().Data)
+            {
+                Console.WriteLine(Messages.CustomerList);
+            }
+        }
+
+        private static void UserTest()
+        {
+            UserManager userManager = new UserManager(new EfUserDal());
+            userManager.Add(new User()
+            {
+                FirstName = "ahmet",
+                LastName = "Kaya",
+                EMail = "Ahmet45@gmail",
+                Password = "784"
+            });
+            Console.WriteLine(Messages.UderAdd);
+            foreach (var user in userManager.GetAll().Data)
+            {
+                Console.WriteLine(user.FirstName+" "+ user.LastName+" "+user.EMail);
+               
+            }
+            Console.WriteLine(Messages.UserList);
         }
 
         private static void ColorTest()
@@ -77,16 +141,17 @@ namespace ConsoleUI
                 Description = "Manuel"
 
             });
-      
+
             Console.WriteLine("------------------------------------9. dersin çıktısı--------------------------------------------------------------");
             Console.WriteLine(" ");
 
             foreach (var car in carMamager.GetCarDetails().Data)
             {
-                Console.WriteLine(car.CarName +" "+car.BrandName + " " + car.ColorName + " " + car.DailyPrice);
+                Console.WriteLine(car.CarName + " " + car.BrandName + " " + car.ColorName + " " + car.DailyPrice);
             }
 
         }
-       
-    }
+        
+
+    } 
 }
