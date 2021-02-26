@@ -25,8 +25,8 @@ namespace ConsoleUI
 
         private static void RentalTest()
         {
-            RentalMenager rentalMenager = new RentalMenager(new EfRentalDal());
-            rentalMenager.Add(new Rental()
+           RentalMenager rentalMenager = new RentalMenager(new EfRentalDal());
+           Console.WriteLine( rentalMenager.Add(new Rental()
             {
 
                 CarId = 5,
@@ -35,19 +35,21 @@ namespace ConsoleUI
                 ReturnDate = new DateTime(2021, 03, 06)
 
 
-            });
+            }).Message);
 
 
 
             Console.WriteLine(" Id     CarId    CustomerId          RentDate                  ReturnDate");
             Console.WriteLine("----   -------  -------------       -------------            ----------------");
-
+            
             foreach (var rental in rentalMenager.GetAll().Data)
             {
-                Console.WriteLine(rental.RentalId+"    "+ rental.CarId+"          "+ rental.CustomerId+"               "+ rental.RentDate+"       "+ rental.ReturnDate);
+             Console.WriteLine(rental.RentalId + "    " + rental.CarId + "          " + rental.CustomerId + "               " + rental.RentDate + "       " + rental.ReturnDate);
             }
-            
-            
+
+
+
+
 
 
         }
