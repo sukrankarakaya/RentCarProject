@@ -110,7 +110,7 @@ namespace ConsoleUI
 
         private static void CarTest()
         {
-            CarMamager carMamager = new CarMamager(new EfCarDal());
+            CarManager carMamager = new CarManager(new EfCarDal());
             foreach (var car in carMamager.GetAll().Data)
             {
                 Console.WriteLine(car.CarId + " " + car.Description + " " + car.DailyPrice);

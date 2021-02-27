@@ -13,11 +13,11 @@ using System.Text;
 
 namespace Business.Concrete
 {
-    public class CarMamager : ICarService
+    public class CarManager : ICarService
     {
         ICarDal _carDal;
 
-        public CarMamager(ICarDal carDal)
+        public CarManager(ICarDal carDal)
         {
             _carDal = carDal;
         }
