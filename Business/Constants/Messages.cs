@@ -11,7 +11,7 @@ namespace Business.Constants
         public static string CarNameInvalid = "Araba ismi geçersiz.";
         public static string CarDelede = "Araba silindi.";
         public static object CarUpdate ="Araba Güncellendi.";
-        public static string CarInvalid="Geçersiz araba ismi.";
+        public static string CarInvalid="Geçersiz araba aciklaması.";
         public static string CarListed = "Arabalar Listelendi.";
 
 
@@ -34,5 +34,7 @@ namespace Business.Constants
         public static string UserList ="User listelendi.";
         public static string CustomerAdd = "Customer eklendi.";
         public static string CustomerList ="Customer listelendi.";
+
+        public static string CarNotInvalid = "Arabanın ücreti 0 olamaz.";
     }
 }
