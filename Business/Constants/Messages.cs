@@ -36,5 +36,14 @@ namespace Business.Constants
         public static string CustomerList ="Customer listelendi.";
 
         public static string CarNotInvalid = "Arabanın ücreti 0 olamaz.";
+
+        public static string CarImageAdded = "Araba resmi eklendi.";
+        public static string CarImageDelete = "Arabanın resmi silindi.";
+        public static string CarImageUpdate = "Arabanın resmi güncellendi.";
+
+        public static string CarImageNotFound = "";
+        public static string FailAddedImageLimit = "Fotograf koyma limitiniz dolmuştur.";
+
+        public static string CarImageIsNotExists { get; internal set; }
     }
 }
