@@ -75,6 +75,7 @@ namespace Business.Concrete
             carImage.ImagePath = updatedFile.Message;
             _carImageDal.Update(carImage);
             return new SuccessResult("Car image updated");
+
         }
 
         private IResult CheckIfCarImageExceded(CarImage carImage)
@@ -114,10 +115,6 @@ namespace Business.Concrete
 
 
         }
-
-
-
-
         private IResult CheckIfCarImageIdIsNotExists(int carImageId)
         {
             var result = _carImageDal.Get(c => c.CarImageId == carImageId);
