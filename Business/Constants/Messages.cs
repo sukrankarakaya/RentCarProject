@@ -1,6 +1,8 @@
-﻿using Entities.Concrete;
+﻿using Core.Entities.Concrete;
+using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Business.Constants
@@ -41,9 +43,16 @@ namespace Business.Constants
         public static string CarImageDelete = "Arabanın resmi silindi.";
         public static string CarImageUpdate = "Arabanın resmi güncellendi.";
 
-        public static string CarImageNotFound = "";
+        public static string CarImageNotFound = "Araba fotografı bulunamaadı.";
         public static string FailAddedImageLimit = "Fotograf koyma limitiniz dolmuştur.";
 
         public static string CarImageIsNotExists { get; internal set; }
+        public static string AuthorizationDenied = "Yetkiniz yok";
+
+        public static string SuccessfulLogin = "Giriş başarılı";
+
+        public static string PasswordError ="Şifre yanlış";
+
+        public static string UserNotFount = "Kullanıcı bulunamadı";
     }
 }
