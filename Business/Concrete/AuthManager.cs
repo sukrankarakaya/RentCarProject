@@ -50,17 +50,18 @@ namespace Business.Concrete
                 return new ErrorDataResult<User>("Parola hatası");
             }
 
-            return new SuccessDataResult<User>("Başarılı giriş") ;
+            return new SuccessDataResult<User>(userToCheck.Data,"Başarılı giriş") ;
         }
 
         public IResult UserExists(string email)
         {
-            if (_userService.GetByMail(email) != null)
+            if (_userService.GetByMail(email).Data != null)
             {
-                return new SuccessResult();
+                return new ErrorResult("Kullanıcı mevcut");
 
             }
-            return new ErrorResult("Kullanıcı mevcut");
+            return new SuccessResult();
+
         }
 
         public IDataResult<AccessToken> CreateAccessToken(User user)
