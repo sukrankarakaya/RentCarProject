@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Results;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Mvc;
 
@@ -71,8 +72,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
-
-
+       
 
 
     }

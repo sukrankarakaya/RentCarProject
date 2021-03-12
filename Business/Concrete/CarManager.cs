@@ -2,6 +2,9 @@
 using Business.BusinessAsspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Performance;
+using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
@@ -28,6 +31,8 @@ namespace Business.Concrete
         }
 
         [SecuredOperation("car.add,admin")]
+        [CacheAspect]
+        [PerformanceAspect(5)]
         public IDataResult<List<Car>> GetAll()
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarListed);
@@ -46,16 +51,15 @@ namespace Business.Concrete
 
         [SecuredOperation("car.add,admin")]
         [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("ICarService.Get")]
+
         public IResult Add(Car car)
         {
           
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
         }
-        public IResult Updete(Car car)
-        {
-            return new SuccessResult(Messages.CarUpdate);
-        }
+        
         
         public IDataResult<List<Car>> GetAllByColorId(int id)
         {
@@ -72,11 +76,30 @@ namespace Business.Concrete
             _carDal.Add(car);
             return new SuccessResult(Messages.CarDelede);
         }
+        [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("ICarService.Get")]
 
         public IResult Update(Car car)
         {
-            _carDal.Update(car);
-            return new SuccessResult(Messages.CarUpdate);
+            var result = _carDal.GetAll(c => c.CarId == car.CarId);
+            if (true)
+            {
+                return new ErrorResult("araba Güncellenemedi");
+            }
+            return new SuccessResult();
+        }
+
+        [TransactionScopeAspect]
+        public IResult AddTransactionalTest(Car car)
+        {
+            Add(car);
+            if (car.DailyPrice<250)
+            {
+                throw new Exception("");
+
+            }
+            Add(car);
+            return null;
         }
     }
 }
