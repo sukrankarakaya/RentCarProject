@@ -10,14 +10,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\images\Logo.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Business\Business.csproj" />
     <ProjectReference Include="..\core\Core.csproj" />
     <ProjectReference Include="..\DataAcces\DataAccess.csproj" />
     <ProjectReference Include="..\Entities\Entities.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\images\Logo.jpg" />
   </ItemGroup>
 
 

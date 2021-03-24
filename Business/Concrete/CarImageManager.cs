@@ -8,7 +8,6 @@ using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Web.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -126,9 +125,19 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
+        public IDataResult<List<CarImage>> GetByCarId(int carId)
+        {
+            var result = _carImageDal.GetAll(i => i.CarId == carId);
 
+            if (result.Count > 0)
+            {
+                return new SuccessDataResult<List<CarImage>>(result);
+            }
 
-       
+            List<CarImage> images = new List<CarImage>();
+            images.Add(new CarImage() { CarId = 0, CarImageId = 0, ImagePath = "/images/Logo.jpg" });
 
+            return new SuccessDataResult<List<CarImage>>(images);
+        }
     }   
 }
