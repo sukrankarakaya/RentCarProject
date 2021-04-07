@@ -12,7 +12,7 @@ namespace Business.Concrete
         IResult Update(Rental rental);
         IDataResult<List<Rental>> GetAll();
         IDataResult<Rental> GetById(int id);
-        IDataResult<List<RentalDateilDto>> GetRentalDetails();
+        IDataResult<List<RentalDateilDto>> GetRentalDetails(int carId);
 
 
     }

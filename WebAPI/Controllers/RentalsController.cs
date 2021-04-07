@@ -78,9 +78,9 @@ namespace WebAPI.Controllers
 
 
         [HttpGet("getdetaildto")]
-        public IActionResult GetDetailDto()
+        public IActionResult GetDetailDto(int carId)
         {
-            var result = _rentalService.GetRentalDetails();
+            var result = _rentalService.GetRentalDetails(carId);
             if (result.Success)
             {
                 return Ok(result);

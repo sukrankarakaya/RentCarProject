@@ -14,10 +14,10 @@ using System.Text;
 
 namespace Business.Concrete
 {
-    public class RentalMenager : IRentalService
+    public class RentalManager : IRentalService
     {
         IRentalDal _rentalDal;
-        public RentalMenager(IRentalDal rentalDal)
+        public RentalManager(IRentalDal rentalDal)
         {
             _rentalDal = rentalDal;
         }
@@ -54,9 +54,9 @@ namespace Business.Concrete
             return new SuccessDataResult<Rental>(_rentalDal.Get(r=>r.RentalId==id) );
         }
 
-        public IDataResult<List<RentalDateilDto>> GetRentalDetails()
+        public IDataResult<List<RentalDateilDto>> GetRentalDetails(int carId)
         {
-            return new SuccessDataResult<List<RentalDateilDto>>(_rentalDal.GetRentalDetails());
+            return new SuccessDataResult<List<RentalDateilDto>>(_rentalDal.GetRentalDetails(c=>c.CarId==carId));
         }
 
         public IResult Update(Rental rental)

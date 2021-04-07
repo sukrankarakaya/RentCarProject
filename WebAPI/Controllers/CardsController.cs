@@ -11,32 +11,30 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CustomersController : ControllerBase
+    public class CardsController : ControllerBase
     {
-        ICustomerService _customerService;
+        ICardService _cardService;
 
-        public CustomersController(ICustomerService customerService)
+        public CardsController(ICardService cardService)
         {
-            _customerService = customerService;
+            _cardService = cardService;
         }
+
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _customerService.GetAll();
+            var result = _cardService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
-
         }
 
-
-
         [HttpPost("add")]
-        public IActionResult Add(Customer customer)
+        public IActionResult Add(Card card)
         {
-            var result = _customerService.Add(customer);
+            var result = _cardService.Add(card);
             if (result.Success)
             {
                 return Ok(result);
@@ -45,9 +43,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("update")]
-        public IActionResult Update(Customer customer)
+        public IActionResult Update(Card card)
         {
-            var result = _customerService.Update(customer);
+            var result = _cardService.Update(card);
             if (result.Success)
             {
                 return Ok(result);
@@ -56,26 +54,24 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("delete")]
-        public IActionResult Delete(Customer customer)
+        public IActionResult Delete(Card card)
         {
-            var result = _customerService.Delete(customer);
+            var result = _cardService.Delete(card);
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
-        [HttpGet("getdetaildto")]
-        public IActionResult GetDetailDto()
+        [HttpGet("getbyid")]
+        public IActionResult GetById(int id)
         {
-            var result = _customerService.GetCustomerDetails();
+            var result = _cardService.GetById(id);
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
-
-
         }
     }
 }

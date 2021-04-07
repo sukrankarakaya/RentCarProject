@@ -11,9 +11,10 @@ namespace Business.ValidationRules.FluentValidation
     {
         public CarValidator()
         {
-            RuleFor(c => c.DailyPrice).NotEmpty();
-            RuleFor(c => c.Description).MinimumLength(1);
-            RuleFor(c => c.DailyPrice).GreaterThan(0);
+            RuleFor(c => c.Description).NotEmpty().WithMessage("Description boş gecilemez.");
+            RuleFor(c => c.Description).MinimumLength(1).WithMessage("Description minimum 1 karakter olmalıdır.");
+            RuleFor(c => c.DailyPrice).GreaterThan(0).WithMessage("DailPrice 0 dan büyük olmalıdır gecilemez.");
+            RuleFor(c => c.DailyPrice).NotEmpty().WithMessage("DailPrice boş gecilemez.");
 
         }
     }   
