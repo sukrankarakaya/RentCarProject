@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAsspects.Autofac;
 using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -21,12 +22,12 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Brand>>( _brandDal.GetAll());
         }
-
         public IResult Add(Brand brand)
         {
             _brandDal.Add(brand);
             return new SuccessResult(Messages.BrandAdded);
         }
+
 
         public IResult Delete(Brand brand)
         {
@@ -34,7 +35,6 @@ namespace Business.Concrete
             return new SuccessResult(Messages.BrandDelete);
         }
 
-      
 
         public IResult Update(Brand brand)
         {

@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAsspects.Autofac;
 using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -21,6 +22,8 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<Color>>(_colorDal.GetAll());
         }
+
+
         public IResult Add(Color color)
         {
             _colorDal.Add(color);
