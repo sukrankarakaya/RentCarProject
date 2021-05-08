@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Business.Abstract
 {
-    public interface ICarService
+    public interface ICarService 
     {
         IDataResult<List<CarDetailDto>> GetAll();
         IDataResult<List<Car>> GetAllByBrandId(int id);

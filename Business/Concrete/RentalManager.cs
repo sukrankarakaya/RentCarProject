@@ -17,19 +17,29 @@ namespace Business.Concrete
     public class RentalManager : IRentalService
     {
         IRentalDal _rentalDal;
-        public RentalManager(IRentalDal rentalDal)
+        ICarDal _carDal;
+        ICustomerDal _customerDal;
+
+
+        public RentalManager(IRentalDal rentalDal, ICarDal carDal,ICustomerDal customerDal)
         {
             _rentalDal = rentalDal;
+            _carDal = carDal;
+            _customerDal = customerDal;
+            
         }
 
         [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
             var result = _rentalDal.GetAll(r => r.CarId == rental.CarId);
+            
+
             foreach (var res in result)
             {
-                if (res.ReturnDate==null|| rental.ReturnDate<res.ReturnDate)
+                if (res.ReturnDate==null|| rental.ReturnDate <= res.ReturnDate)
                 {
+                    
                     return new ErrorResult(Messages.RentalNotAdded);
                 }
                 

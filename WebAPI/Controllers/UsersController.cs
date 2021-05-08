@@ -66,6 +66,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+
         [HttpGet("getbyuserıd")]
         public IActionResult GetByBrand(int userId)
         {
